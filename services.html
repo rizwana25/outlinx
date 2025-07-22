@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Outlinx | Services</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #ffffff, #f4f8f7);
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+    }
+    .hover-card {
+      transition: all 0.3s ease;
+    }
+    .hover-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.2;
+      z-index: -1;
+    }
+    .nav-link {
+      position: relative;
+    }
+    .nav-link:after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -2px;
+      left: 0;
+      background-color: #187969;
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover:after {
+      width: 100%;
+    }
+    .service-category {
+      transition: all 0.3s ease;
+    }
+    .service-category:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+    .sub-service {
+      transition: all 0.2s ease;
+    }
+    .sub-service:hover {
+      background-color: rgba(24, 121, 105, 0.05);
+      transform: translateX(5px);
+    }
+    .lottie-container {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto;
+    }
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 2.5rem;
+      }
+      .lottie-container {
+        width: 100px;
+        height: 100px;
+      }
+    }
+  </style>
+</head>
+<body class="text-gray-800 relative overflow-x-hidden">
+  <!-- Decorative Background Blobs -->
+  <div class="blob w-96 h-96 bg-[#187969] top-[-100px] left-[-100px]"></div>
+  <div class="blob w-72 h-72 bg-[#023957] bottom-[-100px] right-[-80px]"></div>
+  <div class="blob w-64 h-64 bg-[#145f57] top-1/3 right-1/4"></div>
+
+  <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-sm border-b border-gray-200 shadow-sm">
+    <div class="max-w-7xl mx-auto flex justify-between items-center px-4 py-3 sm:py-4">
+      <a href="index.html" class="text-xl font-bold text-[#023957] transition-transform duration-300 hover:scale-105 flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#187969" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+          <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+          <line x1="12" y1="22.08" x2="12" y2="12"></line>
+        </svg>
+        Outlinx
+      </a>
+      <nav class="hidden md:flex space-x-6">
+        <a href="index.html" class="nav-link text-gray-700 hover:text-[#187969] font-medium">Home</a>
+        <a href="about.html" class="nav-link text-gray-700 hover:text-[#187969] font-medium">About</a>
+        <a href="services.html" class="nav-link text-[#187969] font-semibold">Services</a>
+        <a href="works.html" class="nav-link text-gray-700 hover:text-[#187969] font-medium">Works</a>
+        <a href="contact.html" class="nav-link text-gray-700 hover:text-[#187969] font-medium">Contact</a>
+      </nav>
+      <button class="md:hidden" id="menu-toggle">
+        <i data-lucide="menu" class="w-6 h-6 text-[#023957]"></i>
+      </button>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white py-2 px-4 border-t">
+      <a href="index.html" class="block py-2 text-gray-700 hover:text-[#187969]">Home</a>
+      <a href="about.html" class="block py-2 text-gray-700 hover:text-[#187969]">About</a>
+      <a href="services.html" class="block py-2 text-[#187969] font-semibold">Services</a>
+      <a href="works.html" class="block py-2 text-gray-700 hover:text-[#187969]">Works</a>
+      <a href="contact.html" class="block py-2 text-gray-700 hover:text-[#187969]">Contact</a>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 py-12 sm:py-20">
+    <!-- Hero Section -->
+    <section class="text-center mb-16 sm:mb-24" data-aos="fade-up">
+      <div class="mb-8 mx-auto w-40 h-40 sm:w-48 sm:h-48">
+        <lottie-player
+          src="Animation - 1751181387757.json"
+          background="transparent"
+          speed="1"
+          style="width: 100%; height: 100%"
+          loop
+          autoplay
+        ></lottie-player>
+      </div>
+      <h2 class="hero-title text-4xl sm:text-5xl font-bold text-[#023957] mb-4 sm:mb-6 leading-tight">
+        Design <span class="text-[#187969]">That Speaks</span> Volume
+      </h2>
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+        From brand identity to digital marketing, we offer end-to-end creative services tailored to your needs.
+      </p>
+      <div class="mt-8 flex flex-col sm:flex-row justify-center gap-4">
+        <a href="#services" class="inline-block bg-[#187969] text-white py-3 px-6 rounded-full hover:bg-[#145f57] transition transform hover:scale-105 shadow-md">
+          Explore Services
+        </a>
+        <a href="contact.html" class="inline-block border-2 border-[#187969] text-[#187969] py-3 px-6 rounded-full hover:bg-[#187969]/10 transition transform hover:scale-105">
+          Start Your Project
+        </a>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="mb-20">
+      <div class="text-center mb-12" data-aos="fade-up">
+        <h2 class="text-3xl font-bold text-[#023957] mb-4">Our <span class="text-[#187969]">Service</span> Categories</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">
+          Each category includes specialized services to meet your specific design needs
+        </p>
+      </div>
+      
+      <!-- Branding & Identity Design -->
+      <div class="service-category bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mb-8" data-aos="fade-up">
+        <div class="p-6 sm:p-8">
+          <div class="flex flex-col md:flex-row items-start">
+            <div class="lottie-container mb-6 md:mb-0 md:mr-6">
+              <lottie-player
+                src="https://assets6.lottiefiles.com/packages/lf20_gn0tojcq.json"
+                background="transparent"
+                speed="1"
+                style="width: 100%; height: 100%"
+                loop
+                autoplay
+              ></lottie-player>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl font-semibold mb-3 text-[#023957]">Branding & Identity Design</h3>
+              <p class="text-gray-600 mb-4">Create a cohesive visual identity that communicates your brand's essence and values.</p>
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                <a href="#" class="sub-service px-4 py-2 rounded-lg flex items-start">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-[#187969] mt-1 mr-2 flex-shrink-0"></i>
+                  <span>Logo Design (wordmark, icon, combination mark)</span>
+                </a>
+                <a href="#" class="sub-service px-4 py-2 rounded-lg flex items-start">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-[#187969] mt-1 mr-2 flex-shrink-0"></i>
+                  <span>Brand Style Guides</span>
+                </a>
+                <a href="#" class="sub-service px-4 py-2 rounded-lg flex items-start">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-[#187969] mt-1 mr-2 flex-shrink-0"></i>
+                  <span>Business Card Design</span>
+                </a>
+                <a href="#" class="sub-service px-4 py-2 rounded-lg flex items-start">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-[#187969] mt-1 mr-2 flex-shrink-0"></i>
+                  <span>Stationery Design</span>
+                </a>
+                <a href="#" class="sub-service px-4 py-2 rounded-lg flex items-start">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-[#187969] mt-1 mr-2 flex-shrink-0"></i>
+                  <span>Packaging Design</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Social Media Design -->
+      <div class="service-category bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mb-8" data-aos="fade-up" data-aos-delay="50">
+        <div class="p-6 sm:p-8">
+          <div class="flex flex-col md:flex-row items-start">
+            <div class="lottie-container mb-6 md:mb-0 md:mr-6">
+              <lottie-player
+                src="Animation - 1751784796067.json"
+                background="transparent"
+                speed="1"
+                style="width: 100%; height: 100%"
+                loop
+                autoplay
+              ></lottie-player>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl font-semibold mb-3 text-[#023957]">Social Media Design</h3>
+              <p class="text-gray-600 mb-4">Engaging visuals optimized for social platforms to boost your online presence.</p>
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                <a href="#" class="sub-service px-4 py-2 rounded-lg flex items-start">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-[#187969] mt-1 mr-2 flex-shrink-0"></i>
+                  <span>Instagram/Facebook Post & Story Templates</span>
+                </a>
+                <a href="#" class="sub-service px-4 py-2 rounded-lg flex items-start">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-[#187969] mt-1 mr-2 flex-shrink-0"></i>
+                  <span>YouTube Thumbnails</span>
+                </a>
+                <a href="#" class="sub-service px-4 py-2 rounded-lg flex items-start">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-[#187969] mt-1 mr-2 flex-shrink-0"></i>
+                  <span>LinkedIn Banners</span>
+                </a>
+                <a href="#" class="sub-service px-4 py-2 rounded-lg flex items-start">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-[#187969] mt-1 mr-2 flex-shrink-0"></i>
+                  <span>Social Media Ad Creatives</span>
+                </a>
+                <a href="#" class="sub-service px-4 py-2 rounded-lg flex items-start">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-[#187969] mt-1 mr-2 flex-shrink-0"></i>
+                  <span>Highlight Covers</span>
+                </a>
+                <a href="#" class="sub-service px-4 py-2 rounded-lg flex items-start">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-[#187969] mt-1 mr-2 flex-shrink-0"></i>
+                  <span>Infographics for social sharing</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Print Design -->
+      <div class="service-category bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mb-8" data-aos="fade-up" data-aos-delay="100">
+        <div class="p-6 sm:p-8">
+          <div class="flex flex-col md:flex-row items-start">
+            <div class="lottie-container mb-6 md:mb-0 md:mr-6">
+              <lottie-player
+                src="Web Design.json"
+                background="transparent"
+                speed="1"
+                style="width: 100%; height: 100%"
+                loop
+                autoplay
+              ></lottie-player>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl font-semibold mb-3 text-[#023957]">Print Design</h3>
+              <p class="text-gray-600 mb-4">Tangible marketing materials that make a lasting impression.</p>
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                <a href="#" class="sub-service px-4 py-2 rounded-lg flex items-start">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-[#187969] mt-1 mr-2 flex-shrink-0"></i>
+                  <span>Flyers & Posters</span>
+                </a>
+                <a href="#" class="sub-service px-4 py-2 rounded-lg flex items-start">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-[#187969] mt-1 mr-2 flex-shrink-0"></i>
+                  <span>Brochures & Pamphlets</span>
+                </a>
+                <a href="#" class="sub-service px-4 py-2 rounded-lg flex items-start">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-[#187969] mt-1 mr-2 flex-shrink-0"></i>
+                  <span>Magazine Layouts</span>
+                </a>
+                <a href="#" class="sub-service px-4 py-2 rounded-lg flex items-start">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-[#187969] mt-1 mr-2 flex-shrink-0"></i>
+                  <span>Book Covers & Book Layouts</span>
+                </a>
+                <a href="#" class="sub-service px-4 py-2 rounded-lg flex items-start">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-[#187969] mt-1 mr-2 flex-shrink-0"></i>
+                  <span>Newspaper Ads</span>
+                </a>
+                <a href="#" class="sub-service px-4 py-2 rounded-lg flex items-start">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-[#187969] mt-1 mr-2 flex-shrink-0"></i>
+                  <span>Menu Design</span>
+                </a>
+                <a href="#" class="sub-service px-4 py-2 rounded-lg flex items-start">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-[#187969] mt-1 mr-2 flex-shrink-0"></i>
+                  <span>Invitations & Greeting Cards</span>
+                </a>
+                <a href="#" class="sub-service px-4 py-2 rounded-lg flex items-start">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-[#187969] mt-1 mr-2 flex-shrink-0"></i>
+                  <span>Stickers & Labels</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Marketing & Advertising Design -->
+      <div class="service-category bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mb-8" data-aos="fade-up" data-aos-delay="150">
+        <div class="p-6 sm:p-8">
+          <div class="flex flex-col md:flex-row items-start">
+            <div class="lottie-container mb-6 md:mb-0 md:mr-6">
+              <lottie-player
+                src="Animation - 1751784274957.json"
+                background="transparent"
+                speed="1"
+                style="width: 100%; height: 100%"
+                loop
+                autoplay
+              ></lottie-player>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl font-semibold mb-3 text-[#023957]">Marketing & Advertising Design</h3>
+              <p class="text-gray-600 mb-4">Compelling visuals that drive engagement and conversions.</p>
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                <a href="#" class="sub-service px-4 py-2 rounded-lg flex items-start">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-[#187969] mt-1 mr-2 flex-shrink-0"></i>
+                  <span>Digital Ads (Google, Facebook, Instagram)</span>
+                </a>
+                <a href="#" class="sub-service px-4 py-2 rounded-lg flex items-start">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-[#187969] mt-1 mr-2 flex-shrink-0"></i>
+                  <span>Billboards & Hoardings</span>
+                </a>
+                <a href="#" class="sub-service px-4 py-2 rounded-lg flex items-start">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-[#187969] mt-1 mr-2 flex-shrink-0"></i>
+                  <span>Promotional Merchandise (T-shirts, Mugs, Bags)</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Multimedia & Motion Graphics -->
+      <div class="service-category bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mb-8" data-aos="fade-up" data-aos-delay="200">
+        <div class="p-6 sm:p-8">
+          <div class="flex flex-col md:flex-row items-start">
+            <div class="lottie-container mb-6 md:mb-0 md:mr-6">
+              <lottie-player
+                src="creative graphic design.json"
+                background="transparent"
+                speed="1"
+                style="width: 100%; height: 100%"
+                loop
+                autoplay
+              ></lottie-player>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl font-semibold mb-3 text-[#023957]">Multimedia & Motion Graphics</h3>
+              <p class="text-gray-600 mb-4">Dynamic visuals that capture attention and tell your story.</p>
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                <a href="#" class="sub-service px-4 py-2 rounded-lg flex items-start">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-[#187969] mt-1 mr-2 flex-shrink-0"></i>
+                  <span>Animated Social Media Posts</span>
+                </a>
+                <a href="#" class="sub-service px-4 py-2 rounded-lg flex items-start">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-[#187969] mt-1 mr-2 flex-shrink-0"></i>
+                  <span>Logo Animations</span>
+                </a>
+                <a href="#" class="sub-service px-4 py-2 rounded-lg flex items-start">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-[#187969] mt-1 mr-2 flex-shrink-0"></i>
+                  <span>Short Promo Videos</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Other Niche/Support Services -->
+      <div class="service-category bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden" data-aos="fade-up" data-aos-delay="250">
+        <div class="p-6 sm:p-8">
+          <div class="flex flex-col md:flex-row items-start">
+            <div class="lottie-container mb-6 md:mb-0 md:mr-6">
+              <lottie-player
+                src="Animation - 1751784512400.json"
+                background="transparent"
+                speed="1"
+                style="width: 100%; height: 100%"
+                loop
+                autoplay
+              ></lottie-player>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl font-semibold mb-3 text-[#023957]">Other Niche/Support Services</h3>
+              <p class="text-gray-600 mb-4">Specialized solutions for unique design needs.</p>
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                <a href="#" class="sub-service px-4 py-2 rounded-lg flex items-start">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-[#187969] mt-1 mr-2 flex-shrink-0"></i>
+                  <span>Resume & Portfolio Design</span>
+                </a>
+                <a href="#" class="sub-service px-4 py-2 rounded-lg flex items-start">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-[#187969] mt-1 mr-2 flex-shrink-0"></i>
+                  <span>Infographic Design</span>
+                </a>
+                <a href="#" class="sub-service px-4 py-2 rounded-lg flex items-start">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-[#187969] mt-1 mr-2 flex-shrink-0"></i>
+                  <span>Icon Set Design</span>
+                </a>
+                <a href="#" class="sub-service px-4 py-2 rounded-lg flex items-start">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-[#187969] mt-1 mr-2 flex-shrink-0"></i>
+                  <span>Mockup Creation</span>
+                </a>
+                <a href="#" class="sub-service px-4 py-2 rounded-lg flex items-start">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-[#187969] mt-1 mr-2 flex-shrink-0"></i>
+                  <span>Photoshop Retouching / Image Editing</span>
+                </a>
+                <a href="#" class="sub-service px-4 py-2 rounded-lg flex items-start">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-[#187969] mt-1 mr-2 flex-shrink-0"></i>
+                  <span>Brand Naming Assistance</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="bg-[#023957] rounded-2xl p-8 sm:p-12 text-center text-white mb-20" data-aos="fade-up">
+      <div class="lottie-container mx-auto mb-6" style="width: 150px; height: 150px;">
+        <lottie-player
+          src="Animation - 1751784274957.json"
+          background="transparent"
+          speed="1"
+          style="width: 100%; height: 100%"
+          loop
+          autoplay
+        ></lottie-player>
+      </div>
+      <h2 class="text-2xl sm:text-3xl font-bold mb-4">Ready to elevate your brand?</h2>
+      <p class="text-white/90 max-w-2xl mx-auto mb-6">
+        Let's collaborate to create designs that not only look great but also communicate your brand's unique story effectively.
+      </p>
+      <a href="contact.html" class="inline-block bg-white text-[#023957] font-semibold py-3 px-8 rounded-full hover:bg-gray-100 transition transform hover:scale-105 shadow-lg">
+        Get Started Today
+      </a>
+    </section>
+  </main>
+
+  <footer class="bg-[#023957] text-white py-12">
+    <div class="max-w-3xl mx-auto px-4 text-center">
+      <div class="mb-6 flex justify-center items-center text-xl font-bold">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+          <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+          <line x1="12" y1="22.08" x2="12" y2="12" />
+        </svg>
+        Outlinx
+      </div>
+      <p class="text-white/80 mb-6">Crafting memorable brand experiences through exceptional design.</p>
+      <p class="text-white/60 text-sm border-t border-white/10 pt-6">&copy; 2025 Outlinx Studio. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    // Initialize AOS animation library
+    AOS.init({
+      once: true,
+      duration: 800,
+      easing: 'ease-out-quart'
+    });
+    
+    // Initialize Lucide icons
+    lucide.createIcons();
+    
+    // Fade in page on load
+    window.addEventListener('load', () => {
+      document.body.style.opacity = 1;
+    });
+    
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      const icon = menuToggle.querySelector('i');
+      if (mobileMenu.classList.contains('hidden')) {
+        icon.setAttribute('data-lucide', 'menu');
+      } else {
+        icon.setAttribute('data-lucide', 'x');
+      }
+      lucide.createIcons();
+    });
+  </script>
+</body>
+</html>

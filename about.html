@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Outlinx | About</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
+   <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #ffffff, #f4f8f7);
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+      overflow-x: hidden;
+    }
+    .nav-link:after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -2px;
+      left: 0;
+      background-color: #187969;
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover:after {
+      width: 100%;
+    }
+    .founder-quote {
+      border-left: 4px solid #187969;
+    }
+    
+    /* Arrow Background Elements */
+    .arrow-bg {
+      position: absolute;
+      z-index: -1;
+      opacity: 0.1;
+      animation: float 15s infinite linear;
+    }
+    
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-20px) rotate(5deg);
+      }
+      100% {
+        transform: translateY(0) rotate(0deg);
+      }
+    }
+    
+    .arrow-1 {
+      top: 15%;
+      left: 5%;
+      animation-delay: 0s;
+    }
+    .arrow-2 {
+      top: 30%;
+      right: 10%;
+      animation-delay: 2s;
+      animation-duration: 12s;
+    }
+    .arrow-3 {
+      bottom: 20%;
+      left: 15%;
+      animation-delay: 4s;
+      animation-duration: 18s;
+    }
+    .arrow-4 {
+      bottom: 40%;
+      right: 5%;
+      animation-delay: 1s;
+      animation-duration: 14s;
+    }
+    
+    /* Animated arrow path */
+    .moving-arrow {
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      z-index: -1;
+      opacity: 0.08;
+    }
+    
+    .arrow-path {
+      stroke: #187969;
+      stroke-width: 2;
+      fill: none;
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+      animation: dash 30s linear infinite;
+    }
+    
+    @keyframes dash {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+  </style>
+</head>
+<body class="text-gray-800 relative">
+  
+  <
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-sm border-b border-gray-200 shadow-sm">
+    <div class="max-w-7xl mx-auto flex justify-between items-center px-4 py-3 sm:py-4">
+      <a href="index.html" class="text-xl font-bold text-[#023957] transition-transform duration-300 hover:scale-105 flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#187969" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+          <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+          <line x1="12" y1="22.08" x2="12" y2="12"></line>
+        </svg>
+        Outlinx
+      </a>
+      <nav class="hidden md:flex space-x-6">
+        <a href="index.html" class="nav-link relative text-gray-700 hover:text-[#187969] font-medium">Home</a>
+        <a href="about.html" class="nav-link relative text-[#187969] font-semibold">About</a>
+        <a href="services.html" class="nav-link relative text-gray-700 hover:text-[#187969] font-medium">Services</a>
+        <a href="works.html" class="nav-link relative text-gray-700 hover:text-[#187969] font-medium">Works</a>
+        <a href="contact.html" class="nav-link relative text-gray-700 hover:text-[#187969] font-medium">Contact</a>
+      </nav>
+      <button class="md:hidden" id="menu-toggle">
+        <i data-lucide="menu" class="w-6 h-6 text-[#023957]"></i>
+      </button>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white py-2 px-4 border-t">
+      <a href="index.html" class="block py-2 text-gray-700 hover:text-[#187969]">Home</a>
+      <a href="about.html" class="block py-2 text-[#187969] font-semibold">About</a>
+      <a href="services.html" class="block py-2 text-gray-700 hover:text-[#187969]">Services</a>
+      <a href="works.html" class="block py-2 text-gray-700 hover:text-[#187969]">Works</a>
+      <a href="contact.html" class="block py-2 text-gray-700 hover:text-[#187969]">Contact</a>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 py-12 sm:py-20 relative">
+    <!-- Hero Section -->
+    <section class="text-center mb-16 sm:mb-24" data-aos="fade-up">
+      <h1 class="text-4xl sm:text-5xl font-bold text-[#023957] mb-4 sm:mb-6 leading-tight">
+        Where <span class="text-[#187969]">Vision</span> Takes Direction
+      </h1>
+      <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+        We transform abstract ideas into visual stories that resonate with your audience and elevate your brand.
+      </p>
+    </section>
+
+    <!-- Founder's Message -->
+    <section class="mb-20" data-aos="fade-up">
+      <div class="bg-white p-8 sm:p-10 rounded-2xl shadow-lg founder-quote">
+        <div class="flex items-start">
+          <i data-lucide="quote" class="w-8 h-8 text-[#187969] mr-4 mt-1 flex-shrink-0"></i>
+          <div>
+            <p class="text-xl italic text-gray-700 mb-4">
+              "Every brand has a voice. I make sure it speaks clearly, creatively, and confidently — through every visual touchpoint."
+            </p>
+            <div class="text-right">
+              <p class="font-semibold text-[#023957]">Kadeeja Fida</p>
+              <p class="text-gray-600">Founder & Creative Director, Outlinx</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Our Story -->
+    <section class="mb-20">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div data-aos="fade-right">
+          <h2 class="text-3xl font-bold text-[#023957] mb-6">Who We Are</h2>
+          <p class="text-gray-600 mb-6 ">
+           Outlinx is a premium graphic design studio based in Kerala, offering expert branding, logo design, and social media creatives for businesses and creators. From visual storytelling to digital presence, Outlinx delivers impactful design experiences that elevate your brand across every platform.
+           <br> Step into the digital world with bold, tailor-made design solutions. At Outlinx, we turn ideas into visual impact — through logo design, branding, and creative digital content that connects.
+          </p>
+          
+        </div>
+        <div data-aos="fade-left" class="relative">
+
+          <lottie-player
+            src="Animation - 1751186785268.json"
+            background="transparent"
+            speed="1"
+            style="width: 100%; height: 100%"
+            loop
+            autoplay
+          ></lottie-player>
+      </div>
+    </section>
+
+    <!-- Our Approach -->
+    <section class="mb-20">
+      <div class="text-center mb-12" data-aos="fade-up">
+        <h2 class="text-3xl font-bold text-[#023957] mb-4">Our <span class="text-[#187969]">Approach</span></h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">
+          How we turn your vision into reality
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-white p-8 rounded-2xl shadow-md" data-aos="fade-up" data-aos-delay="100">
+          <div class="w-12 h-12 bg-[#e0f7f4] rounded-lg flex items-center justify-center mb-4">
+            <i data-lucide="lightbulb" class="w-6 h-6 text-[#187969]"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-3 text-[#023957]">Discover</h3>
+          <p class="text-gray-600">We dive deep into your brand's essence, audience, and market to uncover unique opportunities.</p>
+        </div>
+        <div class="bg-white p-8 rounded-2xl shadow-md" data-aos="fade-up" data-aos-delay="200">
+          <div class="w-12 h-12 bg-[#e0f7f4] rounded-lg flex items-center justify-center mb-4">
+            <i data-lucide="pen-tool" class="w-6 h-6 text-[#187969]"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-3 text-[#023957]">Design</h3>
+          <p class="text-gray-600">Strategic creativity meets technical execution to craft visuals with purpose.</p>
+        </div>
+        <div class="bg-white p-8 rounded-2xl shadow-md" data-aos="fade-up" data-aos-delay="300">
+          <div class="w-12 h-12 bg-[#e0f7f4] rounded-lg flex items-center justify-center mb-4">
+            <i data-lucide="rocket" class="w-6 h-6 text-[#187969]"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-3 text-[#023957]">Deliver</h3>
+          <p class="text-gray-600">We provide complete brand toolkits and guidelines for seamless implementation.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Our Vision -->
+    <section class="mb-20 bg-[#023957] rounded-2xl p-8 sm:p-12 text-white" data-aos="fade-up">
+      <div class="max-w-4xl mx-auto text-center">
+        <div class="w-16 h-16 bg-[#187969]/20 rounded-full flex items-center justify-center mx-auto mb-6">
+          <i data-lucide="move-right" class="w-8 h-8 text-[#187969]"></i>
+        </div>
+        <h2 class="text-3xl font-bold mb-6">Our Vision</h2>
+        <p class="text-lg text-white/90 mb-6">
+          To become the most trusted creative partner for emerging brands by delivering design that doesn't just decorate, but communicates and converts.
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8">
+          <div class="bg-white/10 p-4 rounded-lg">
+            <p class="font-bold text-white">50+</p>
+            <p class="text-white/80 text-sm">Projects Completed</p>
+          </div>
+          <div class="bg-white/10 p-4 rounded-lg">
+            <p class="font-bold text-white">97%</p>
+            <p class="text-white/80 text-sm">Client Satisfaction</p>
+          </div>
+          <div class="bg-white/10 p-4 rounded-lg">
+            <p class="font-bold text-white">7 Days</p>
+            <p class="text-white/80 text-sm">Avg. Concept Delivery</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="text-center" data-aos="fade-up">
+      <h2 class="text-3xl font-bold text-[#023957] mb-6">Ready to craft your visual story?</h2>
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <a href="contact.html" class="inline-block bg-[#187969] text-white py-3 px-8 rounded-full hover:bg-[#145f57] transition transform hover:scale-105 shadow-lg">
+          Let's Connect
+        </a>
+        <a href="works.html" class="inline-block border-2 border-[#187969] text-[#187969] py-3 px-8 rounded-full hover:bg-[#187969]/10 transition transform hover:scale-105">
+          See Our Work
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-[#023957] text-white py-12">
+    <div class="max-w-3xl mx-auto px-4 text-center">
+      <div class="mb-6 flex justify-center items-center text-xl font-bold">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+          <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+          <line x1="12" y1="22.08" x2="12" y2="12" />
+        </svg>
+        Outlinx
+      </div>
+      <p class="text-white/80 mb-6">Crafting memorable brand experiences through exceptional design.</p>
+      <p class="text-white/60 text-sm border-t border-white/10 pt-6">&copy; 2025 Outlinx Studio. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    // Initialize AOS animation library
+    AOS.init({
+      once: true,
+      duration: 800,
+      easing: 'ease-out-quart'
+    });
+    
+    // Initialize Lucide icons
+    lucide.createIcons();
+    
+    // Fade in page on load
+    window.addEventListener('load', () => {
+      document.body.style.opacity = 1;
+    });
+    
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      const icon = menuToggle.querySelector('i');
+      if (mobileMenu.classList.contains('hidden')) {
+        icon.setAttribute('data-lucide', 'menu');
+      } else {
+        icon.setAttribute('data-lucide', 'x');
+      }
+      lucide.createIcons();
+    });
+  </script>
+</body>
+</html>

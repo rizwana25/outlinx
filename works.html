@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Outlinx | Our Work</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #ffffff, #f4f8f7);
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+    }
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.15;
+      z-index: -1;
+    }
+    .work-card {
+      transition: all 0.3s ease;
+      overflow: hidden;
+      cursor: pointer;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+    .work-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.15);
+    }
+    .work-card img {
+      transition: transform 0.5s ease;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .work-card:hover img {
+      transform: scale(1.03);
+    }
+    .nav-link {
+      position: relative;
+    }
+    .nav-link:after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -2px;
+      left: 0;
+      background-color: #187969;
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover:after {
+      width: 100%;
+    }
+    /* Fullscreen viewer */
+    .fullscreen-viewer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.95);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .fullscreen-viewer.active {
+      display: flex;
+      opacity: 1;
+    }
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.95);
+      z-index: 1000;
+      overflow-y: auto;
+    }
+    .modal.active {
+      display: block;
+    }
+    .modal-content {
+      max-width: 1200px;
+      margin: 2rem auto;
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+    .modal-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .modal-gallery img {
+      border-radius: 8px;
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+    .modal-gallery img:hover {
+      transform: scale(1.02);
+    }
+    .close-modal {
+      position: absolute;
+      top: 25px;
+      right: 30px;
+      color: white;
+      font-size: 2.5rem;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .close-modal:hover {
+      transform: scale(1.1);
+    }
+    .category-section {
+      margin-bottom: 4rem;
+    }
+    .filter-btn {
+      transition: all 0.3s ease;
+    }
+    .filter-btn.active {
+      background-color: #023957;
+      color: white;
+      border-color: #023957;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(2, 57, 87, 0.2);
+    }
+    .portfolio-nav {
+      scrollbar-width: none;
+    }
+    .portfolio-nav::-webkit-scrollbar {
+      display: none;
+    }
+    .image-container {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      aspect-ratio: 4/3;
+    }
+    .image-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+      padding: 1.5rem;
+      color: white;
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+    }
+    .work-card:hover .image-overlay {
+      transform: translateY(0);
+    }
+    @media (max-width: 768px) {
+      .image-overlay {
+        transform: translateY(0);
+        background: rgba(0,0,0,0.5);
+      }
+    }
+    /* Filtering functionality */
+    .portfolio-item {
+      transition: all 0.5s ease;
+    }
+    .portfolio-item.hidden {
+      opacity: 0;
+      height: 0;
+      margin: 0;
+      padding: 0;
+      transform: scale(0.8);
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body class="text-gray-800 relative overflow-x-hidden">
+  <!-- Background Blobs -->
+  <div class="blob w-96 h-96 bg-[#187969] top-[-100px] left-[-100px]"></div>
+  <div class="blob w-72 h-72 bg-[#023957] bottom-[-100px] right-[-80px]"></div>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-sm border-b border-gray-200 shadow-sm">
+    <div class="max-w-7xl mx-auto flex justify-between items-center px-4 py-3 sm:py-4">
+      <a href="index.html" class="text-xl font-bold text-[#023957] transition-transform duration-300 hover:scale-105 flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#187969" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+          <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+          <line x1="12" y1="22.08" x2="12" y2="12"></line>
+        </svg>
+        Outlinx
+      </a>
+      <nav class="hidden md:flex space-x-6">
+        <a href="index.html" class="nav-link text-gray-700 hover:text-[#187969] font-medium">Home</a>
+        <a href="about.html" class="nav-link text-gray-700 hover:text-[#187969] font-medium">About</a>
+        <a href="services.html" class="nav-link text-gray-700 hover:text-[#187969] font-medium">Services</a>
+        <a href="works.html" class="nav-link text-[#187969] font-semibold">Works</a>
+        <a href="contact.html" class="nav-link text-gray-700 hover:text-[#187969] font-medium">Contact</a>
+      </nav>
+      <button class="md:hidden" id="menu-toggle">
+        <i data-lucide="menu" class="w-6 h-6 text-[#023957]"></i>
+      </button>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white py-2 px-4 border-t">
+      <a href="index.html" class="block py-2 text-gray-700 hover:text-[#187969]">Home</a>
+      <a href="about.html" class="block py-2 text-gray-700 hover:text-[#187969]">About</a>
+      <a href="services.html" class="block py-2 text-gray-700 hover:text-[#187969]">Services</a>
+      <a href="works.html" class="block py-2 text-[#187969] font-semibold">Works</a>
+      <a href="contact.html" class="block py-2 text-gray-700 hover:text-[#187969]">Contact</a>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 py-12 sm:py-20">
+    <!-- Hero Section -->
+    <section class="text-center mb-16 sm:mb-24" data-aos="fade-up">
+      <h1 class="text-4xl sm:text-5xl font-bold text-[#023957] mb-4 sm:mb-6 leading-tight">
+        Our <span class="text-[#187969]">Creative Portfolio</span>
+      </h1>
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+        Explore our collection of design work that transforms brands and delivers results
+      </p>
+    </section>
+
+    <!-- Portfolio Navigation -->
+    <div class="mb-12 sticky top-20 bg-white/80 backdrop-blur-sm py-4 z-10" data-aos="fade-up">
+      <div class="flex overflow-x-auto pb-2 space-x-4 portfolio-nav">
+        <button data-filter="all" class="whitespace-nowrap px-5 py-2 bg-[#023957] text-white rounded-full font-medium filter-btn active">All Works</button>
+        <button data-filter="branding" class="whitespace-nowrap px-5 py-2 bg-white text-[#023957] border border-[#023957] rounded-full font-medium filter-btn hover:bg-gray-50">Branding</button>
+        <button data-filter="social" class="whitespace-nowrap px-5 py-2 bg-white text-[#023957] border border-[#023957] rounded-full font-medium filter-btn hover:bg-gray-50">Social Media</button>
+        <button data-filter="print" class="whitespace-nowrap px-5 py-2 bg-white text-[#023957] border border-[#023957] rounded-full font-medium filter-btn hover:bg-gray-50">Print</button>
+        <button data-filter="marketing" class="whitespace-nowrap px-5 py-2 bg-white text-[#023957] border border-[#023957] rounded-full font-medium filter-btn hover:bg-gray-50">Marketing</button>
+        <button data-filter="motion" class="whitespace-nowrap px-5 py-2 bg-white text-[#023957] border border-[#023957] rounded-full font-medium filter-btn hover:bg-gray-50">Motion</button>
+        <button data-filter="niche" class="whitespace-nowrap px-5 py-2 bg-white text-[#023957] border border-[#023957] rounded-full font-medium filter-btn hover:bg-gray-50">Niche</button>
+      </div>
+    </div>
+
+    <!-- Portfolio Sections -->
+    <div id="portfolio-items" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Branding Items -->
+      <div class="portfolio-item" data-category="branding">
+        <div class="work-card group" onclick="openModal('brand-project-1')">
+          <div class="image-container">
+            <img src="bdm1.jpg" alt="Corporate Rebrand Project">
+            <div class="image-overlay">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="portfolio-item" data-category="branding">
+        <div class="work-card group" onclick="openModal('brand-project-2')">
+          <div class="image-container">
+            <img src="LIORA 2ND OUT [Recovered]-compressed-images-0.jpg" alt="Startup Logo Project">
+            <div class="image-overlay">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Social Media Items -->
+      <div class="portfolio-item" data-category="social">
+        <div class="work-card group" onclick="openFullscreen('sm1.jpg')">
+          <div class="image-container">
+            <img src="sm1.jpg" alt="Google Display Ads">
+            <div class="image-overlay">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="portfolio-item" data-category="social">
+        <div class="work-card group" onclick="openFullscreen('sm2.jpg')">
+          <div class="image-container">
+            <img src="sm2.jpg" alt="Social Media Campaign">
+            <div class="image-overlay">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="portfolio-item" data-category="social">
+        <div class="work-card group" onclick="openFullscreen('sm3.jpg')">
+          <div class="image-container">
+            <img src="sm3.jpg" alt="Instagram Story Set">
+            <div class="image-overlay">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="portfolio-item" data-category="social">
+        <div class="work-card group" onclick="openFullscreen('sm4.jpg')">
+          <div class="image-container">
+            <img src="sm4.jpg" alt="Facebook Ad Series">
+            <div class="image-overlay">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="portfolio-item" data-category="social">
+        <div class="work-card group" onclick="openFullscreen('sm5.jpg')">
+          <div class="image-container">
+            <img src="sm5.jpg" alt="LinkedIn Carousel">
+            <div class="image-overlay">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="portfolio-item" data-category="social">
+        <div class="work-card group" onclick="openFullscreen('sm6.jpg')">
+          <div class="image-container">
+            <img src="sm6.jpg" alt="Twitter Header Set">
+            <div class="image-overlay">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="portfolio-item" data-category="social">
+        <div class="work-card group" onclick="openFullscreen('sm7.jpg')">
+          <div class="image-container">
+            <img src="sm7.jpg" alt="Social Media Graphics">
+            <div class="image-overlay">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Print Design Items -->
+      <div class="portfolio-item" data-category="print">
+        <div class="work-card group" onclick="openFullscreen('pd1.jpg')">
+          <div class="image-container">
+            <img src="pd1.jpg" alt="Brochure Design">
+            <div class="image-overlay">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="portfolio-item" data-category="print">
+        <div class="work-card group" onclick="openFullscreen('pd2.jpg')">
+          <div class="image-container">
+            <img src="pd2.jpg" alt="Business Cards">
+            <div class="image-overlay">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="portfolio-item" data-category="print">
+        <div class="work-card group" onclick="openFullscreen('pd3.jpg')">
+          <div class="image-container">
+            <img src="pd3.jpg" alt="Event Program">
+            <div class="image-overlay">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="portfolio-item" data-category="print">
+        <div class="work-card group" onclick="openFullscreen('pd4.jpg')">
+          <div class="image-container">
+            <img src="pd4.jpg" alt="Stationery Set">
+            <div class="image-overlay">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Marketing Items -->
+      <div class="portfolio-item" data-category="marketing">
+        <div class="work-card group" onclick="openFullscreen('md1.jpg')">
+          <div class="image-container">
+            <img src="md1.jpg" alt="Display Ad Campaign">
+            <div class="image-overlay">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="portfolio-item" data-category="marketing">
+        <div class="work-card group" onclick="openFullscreen('md2.jpg')">
+          <div class="image-container">
+            <img src="md2.jpg" alt="Email Newsletter">
+            <div class="image-overlay">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="portfolio-item" data-category="marketing">
+        <div class="work-card group" onclick="openFullscreen('md3.jpg')">
+          <div class="image-container">
+            <img src="md3.jpg" alt="Landing Page Design">
+            <div class="image-overlay">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Niche Items -->
+      <div class="portfolio-item" data-category="niche">
+        <div class="work-card group" onclick="openFullscreen('n1.jpg')">
+          <div class="image-container">
+            <img src="n1.jpg" alt="Illustration Project">
+            <div class="image-overlay">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="portfolio-item" data-category="niche">
+        <div class="work-card group" onclick="openFullscreen('n2.jpg')">
+          <div class="image-container">
+            <img src="n2.jpg" alt="Infographic Design">
+            <div class="image-overlay">
+             
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="portfolio-item" data-category="niche">
+        <div class="work-card group" onclick="openFullscreen('n3.jpg')">
+          <div class="image-container">
+            <img src="n3.jpg" alt="Merchandise Design">
+            <div class="image-overlay">
+             
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="portfolio-item" data-category="niche">
+        <div class="work-card group" onclick="openFullscreen('n4.jpg')">
+          <div class="image-container">
+            <img src="n4.jpg" alt="Icon Set">
+            <div class="image-overlay">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="portfolio-item" data-category="niche">
+        <div class="work-card group" onclick="openFullscreen('n5.jpg')">
+          <div class="image-container">
+            <img src="n5.jpg" alt="Web Elements">
+            <div class="image-overlay">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="portfolio-item" data-category="niche">
+        <div class="work-card group" onclick="openFullscreen('n6.jpg')">
+          <div class="image-container">
+            <img src="n6.jpg" alt="Presentation Design">
+            <div class="image-overlay">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="portfolio-item" data-category="niche">
+        <div class="work-card group" onclick="openFullscreen('n7.jpg')">
+          <div class="image-container">
+            <img src="n7.jpg" alt="Environmental Graphics">
+            <div class="image-overlay">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA Section -->
+    <section class="bg-[#023957] rounded-2xl p-8 sm:p-12 text-center text-white mt-10 mb-20" data-aos="fade-up">
+      <h2 class="text-2xl sm:text-3xl font-bold mb-4">Ready to start your project?</h2>
+      <p class="text-white/90 max-w-2xl mx-auto mb-6">
+        Let's create something amazing together. Get in touch to discuss your design needs.
+      </p>
+      <a href="contact.html" class="inline-block bg-white text-[#023957] font-semibold py-3 px-8 rounded-full hover:bg-gray-100 transition transform hover:scale-105 shadow-lg">
+        Contact Us
+      </a>
+    </section>
+  </main>
+
+  <!-- Fullscreen Image Viewer -->
+  <div id="fullscreen-viewer" class="fullscreen-viewer">
+    <img id="fullscreen-img" class="max-w-[90vw] max-h-[90vh] object-contain" alt="Fullscreen view">
+    <button onclick="closeFullscreen()" class="absolute top-4 right-4 text-white text-4xl hover:text-gray-300">&times;</button>
+  </div>
+
+  <!-- Branding Modals -->
+  <div id="brand-project-1" class="modal">
+    <span class="close-modal" onclick="closeModal()">&times;</span>
+    <div class="modal-content">
+      <div class="modal-gallery">
+        <img src="bd1.jpg" alt="Branding Project 1" onclick="openFullscreen('bd1.jpg')">
+        <img src="bd4.jpg" alt="Branding Project 2" onclick="openFullscreen('bd4.jpg')">
+        <img src="bd33.jpg" alt="Branding Project 3" onclick="openFullscreen('bd33.jpg')">
+        <img src="bd2.jpg" alt="Branding Project 4" onclick="openFullscreen('bd2.jpg')">
+      </div>
+    </div>
+  </div>
+
+  <div id="brand-project-2" class="modal">
+    <span class="close-modal" onclick="closeModal()">&times;</span>
+    <div class="modal-content">
+      <div class="modal-gallery">
+        <img src="LIORA 2ND OUT [Recovered]-compressed-images-1.jpg" alt="Primary Logo" onclick="openFullscreen('bdm1.jpg')">
+        <img src="LIORA 2ND OUT [Recovered]-compressed-images-2.jpg" alt="Black Version" onclick="openFullscreen('bd1.jpg')">
+        <img src="LIORA 2ND OUT [Recovered]-compressed-images-3.jpg" alt="White Version" onclick="openFullscreen('bd4.jpg')">
+        <img src="LIORA 2ND OUT [Recovered]-compressed-images-4.jpg" alt="App Icon" onclick="openFullscreen('bd33.jpg')">
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-[#023957] text-white py-12">
+    <div class="max-w-3xl mx-auto px-4 text-center">
+      <div class="mb-6 flex justify-center items-center text-xl font-bold">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+          <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+          <line x1="12" y1="22.08" x2="12" y2="12" />
+        </svg>
+        Outlinx
+      </div>
+      <p class="text-white/80 mb-6">Crafting memorable brand experiences through exceptional design.</p>
+      <p class="text-white/60 text-sm border-t border-white/10 pt-6">&copy; 2025 Outlinx Studio. All rights reserved.</p>
+    </div>
+  </footer>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    // Initialize AOS animation library
+    AOS.init({
+      once: true,
+      duration: 800,
+      easing: 'ease-out-quart'
+    });
+    
+    // Initialize Lucide icons
+    lucide.createIcons();
+    
+    // Fade in page on load
+    window.addEventListener('load', () => {
+      document.body.style.opacity = 1;
+    });
+    
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      const icon = menuToggle.querySelector('i');
+      if (mobileMenu.classList.contains('hidden')) {
+        icon.setAttribute('data-lucide', 'menu');
+      } else {
+        icon.setAttribute('data-lucide', 'x');
+      }
+      lucide.createIcons();
+    });
+
+    // Fullscreen image viewer functions
+    function openFullscreen(imgSrc) {
+      const viewer = document.getElementById('fullscreen-viewer');
+      const img = document.getElementById('fullscreen-img');
+      img.src = imgSrc;
+      viewer.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeFullscreen() {
+      document.getElementById('fullscreen-viewer').classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    // Modal functions (for branding projects)
+    function openModal(modalId) {
+      document.getElementById(modalId).classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.querySelectorAll('.modal').forEach(modal => {
+        modal.classList.remove('active');
+      });
+      document.body.style.overflow = 'auto';
+    }
+
+    // Close when clicking outside modal content
+    document.querySelectorAll('.modal').forEach(modal => {
+      modal.addEventListener('click', function(e) {
+        if (e.target === this) {
+          closeModal();
+        }
+      });
+    });
+
+    // Close with ESC key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeModal();
+        closeFullscreen();
+      }
+    });
+
+    // Portfolio Filtering Functionality
+    const filterButtons = document.querySelectorAll('[data-filter]');
+    const portfolioItems = document.querySelectorAll('.portfolio-item');
+    
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        // Update active button
+        filterButtons.forEach(btn => {
+          btn.classList.remove('active', 'bg-[#023957]', 'text-white', 'border-[#023957]');
+          btn.classList.add('bg-white', 'text-[#023957]', 'border');
+        });
+        
+        button.classList.add('active', 'bg-[#023957]', 'text-white', 'border-[#023957]');
+        button.classList.remove('bg-white', 'text-[#023957]', 'border');
+        
+        const filterValue = button.getAttribute('data-filter');
+        
+        // Filter items
+        portfolioItems.forEach(item => {
+          if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+            item.classList.remove('hidden');
+            setTimeout(() => {
+              item.style.opacity = '1';
+              item.style.height = 'auto';
+              item.style.margin = '';
+              item.style.padding = '';
+              item.style.transform = 'scale(1)';
+              item.style.pointerEvents = 'auto';
+            }, 50);
+          } else {
+            item.style.opacity = '0';
+            item.style.height = '0';
+            item.style.margin = '0';
+            item.style.padding = '0';
+            item.style.transform = 'scale(0.8)';
+            item.style.pointerEvents = 'none';
+            setTimeout(() => {
+              item.classList.add('hidden');
+            }, 300);
+          }
+        });
+        
+        // Update carousel if in carousel view
+        if (document.getElementById('carousel-view').classList.contains('hidden') === false) {
+          setupCarousel(filterValue);
+        }
+      });
+    });
+
+    // Carousel Functionality
+    let currentSlide = 0;
+    let slides = [];
+    
+    function setupCarousel(filter = 'all') {
+      const carouselSlide = document.querySelector('.carousel-slide');
+      const carouselNav = document.querySelector('.carousel-nav');
+      
+      // Clear existing content
+      carouselSlide.innerHTML = '';
+      carouselNav.innerHTML = '';
+      
+      // Get filtered items
+      let itemsToShow;
+      if (filter === 'all') {
+        itemsToShow = Array.from(portfolioItems).filter(item => !item.classList.contains('hidden'));
+      } else {
+        itemsToShow = Array.from(portfolioItems).filter(item => 
+          item.getAttribute('data-category') === filter && !item.classList.contains('hidden')
+        );
+      }
+      
+      // Create slides
+      slides = [];
+      itemsToShow.forEach((item, index) => {
+        const imgSrc = item.querySelector('img').src;
+        const title = item.querySelector('h3').textContent;
+        const description = item.querySelector('p').textContent;
+        
+        const slide = document.createElement('div');
+        slide.className = 'carousel-item';
+        slide.innerHTML = `
+          <img src="${imgSrc}" alt="${title}">
+          <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6 text-white">
+            <h3 class="text-xl font-bold">${title}</h3>
+            <p class="text-white/90">${description}</p>
+          </div>
+        `;
+        
+        carouselSlide.appendChild(slide);
+        slides.push(slide);
+        
+        // Create nav dot
+        const dot = document.createElement('div');
+        dot.className = 'carousel-dot';
+        if (index === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => {
+          goToSlide(index);
+        });
+        carouselNav.appendChild(dot);
+      });
+      
+      // Set initial position
+      goToSlide(0);
+    }
+    
+    function goToSlide(index) {
+      const carouselSlide = document.querySelector('.carousel-slide');
+      const dots = document.querySelectorAll('.carousel-dot');
+      
+      currentSlide = index;
+      carouselSlide.style.transform = `translateX(-${currentSlide * 100}%)`;
+      
+      // Update dots
+      dots.forEach((dot, i) => {
+        if (i === currentSlide) {
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('active');
+        }
+      });
+    }
+    
+    function moveCarousel(direction) {
+      let newIndex = currentSlide + direction;
+      
+      if (newIndex < 0) {
+        newIndex = slides.length - 1;
+      } else if (newIndex >= slides.length) {
+        newIndex = 0;
+      }
+      
+      goToSlide(newIndex);
+    }
+    
+    // Auto-rotate carousel
+    let carouselInterval;
+    function startCarousel() {
+      carouselInterval = setInterval(() => {
+        moveCarousel(1);
+      }, 5000);
+    }
+    
+    // View Toggle
+    const gridViewBtn = document.getElementById('grid-view-btn');
+    const carouselViewBtn = document.getElementById('carousel-view-btn');
+    const portfolioItemsContainer = document.getElementById('portfolio-items');
+    const carouselView = document.getElementById('carousel-view');
+    
+    gridViewBtn.addEventListener('click', () => {
+      portfolioItemsContainer.classList.remove('hidden');
+      carouselView.classList.add('hidden');
+      gridViewBtn.classList.remove('bg-white', 'text-[#023957]', 'border');
+      gridViewBtn.classList.add('bg-[#023957]', 'text-white', 'border-[#023957]');
+      carouselViewBtn.classList.remove('bg-[#023957]', 'text-white', 'border-[#023957]');
+      carouselViewBtn.classList.add('bg-white', 'text-[#023957]', 'border');
+      clearInterval(carouselInterval);
+    });
+    
+    carouselViewBtn.addEventListener('click', () => {
+      portfolioItemsContainer.classList.add('hidden');
+      carouselView.classList.remove('hidden');
+      carouselViewBtn.classList.remove('bg-white', 'text-[#023957]', 'border');
+      carouselViewBtn.classList.add('bg-[#023957]', 'text-white', 'border-[#023957]');
+      gridViewBtn.classList.remove('bg-[#023957]', 'text-white', 'border-[#023957]');
+      gridViewBtn.classList.add('bg-white', 'text-[#023957]', 'border');
+      
+      // Get current filter
+      const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
+      setupCarousel(activeFilter);
+      startCarousel();
+    });
+    
+    // Pause carousel on hover
+    document.querySelector('.carousel-container')?.addEventListener('mouseenter', () => {
+      clearInterval(carouselInterval);
+    });
+    
+    document.querySelector('.carousel-container')?.addEventListener('mouseleave', () => {
+      if (carouselView.classList.contains('hidden') === false) {
+        startCarousel();
+      }
+    });
+  </script>
+</body>
+</html>
